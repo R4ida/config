@@ -1,2 +1,6 @@
 [core]
 	excludesfile = /home/meta/.gitignore
+[user]
+	email = metaa11@protonmail.com
+	r4ida = metaa11@protonmail.com
+	name = r4ida
