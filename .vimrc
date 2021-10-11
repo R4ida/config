@@ -1,8 +1,11 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'vimwiki/vimwiki'
 Plug 'joshdick/onedark.vim' 
 Plug 'flazz/vim-colorschemes'
 Plug 'takac/vim-hardtime'
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
 
 call plug#end()
 
