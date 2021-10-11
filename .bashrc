@@ -9,8 +9,13 @@ ip() {
   fi
 }
 
+alias bat='batcat'
+
 unset rc
 export EDITOR='vim'
+set -o vi
+
+PS1='[\u@\h \W]\$ '
 
 # bash history
 HISTSIZE=10000
