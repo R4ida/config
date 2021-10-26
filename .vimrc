@@ -6,11 +6,19 @@ Plug 'flazz/vim-colorschemes'
 Plug 'takac/vim-hardtime'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
+Plug 'lervag/vimtex' 
 
 call plug#end()
 
+"" VimTeX requirement
+set encoding=utf8
+
+"" VimWiki requirements
 set nocompatible
-set number
+filetype plugin on
+syntax on
+
+"" Preferences
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -20,10 +28,11 @@ set ruler
 set ignorecase
 set clipboard=unnamedplus
 set relativenumber
-syntax on
+set number
 colorscheme onedark
-filetype plugin on
 ""highlight Comment ctermfg=green
+
+"" vim HardTime plugin
 autocmd VimEnter * HardTimeOn
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
