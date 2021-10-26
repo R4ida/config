@@ -9,6 +9,7 @@ Plug 'alvan/vim-closetag'
 
 call plug#end()
 
+set nocompatible
 set number
 set tabstop=2
 set shiftwidth=2
@@ -21,7 +22,8 @@ set clipboard=unnamedplus
 set relativenumber
 syntax on
 colorscheme onedark
-highlight Comment ctermfg=green
+filetype plugin on
+""highlight Comment ctermfg=green
 autocmd VimEnter * HardTimeOn
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
