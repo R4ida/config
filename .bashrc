@@ -15,7 +15,7 @@ unset rc
 export EDITOR='vim'
 set -o vi
 
-PS1='[\u@\h \W]\$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 
 # bash history
 HISTSIZE=10000
@@ -36,3 +36,17 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 [ -x "$(command -v tmux)" ] \
   && [ -z "${TMUX}" ] \
   && { tmux attach || tmux; } >/dev/null 2>&1
+
+#NNN
+export NNN_PLUG='v:preview-tabbed;i:imgview;f:fzcd;d:dragdrop'
+export NNN_COLORS='#a744b322' 
+export NNN_FCOLORS='dfdfdf6c0000df42bbbaba5f'
+export NNN_FIFO='/tmp/nnn.fifo'
+export NNN_TRASH=1
+
+alias nn='nnn -e'
+
+# system specific
+# fedora:
+alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
+__vte_prompt_command() { true; }
