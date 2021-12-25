@@ -8,6 +8,7 @@ Plug 'lervag/vimtex'
 Plug 'PProvost/vim-ps1'
 Plug 'habamax/vim-godot'
 Plug 'vim-python/python-syntax'
+Plug 'tikhomirov/vim-glsl'
 
 Plug 'joshdick/onedark.vim' 
 Plug 'flazz/vim-colorschemes'
