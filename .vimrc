@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 "Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-commentary'
 
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
@@ -16,6 +17,7 @@ Plug 'junegunn/limelight.vim'
 
 Plug 'lervag/vimtex' 
 Plug 'vim-python/python-syntax'
+Plug 'bfrg/vim-cpp-modern'
 Plug 'pangloss/vim-javascript'
 Plug 'habamax/vim-godot'
 
