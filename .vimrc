@@ -6,11 +6,8 @@ Plug 'tpope/vim-commentary'
 
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
-Plug 'junegunn/fzf'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-Plug 'tools-life/taskwiki'
-"Plug 'itchyny/calendar.vim'
 
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
@@ -20,10 +17,14 @@ Plug 'vim-python/python-syntax'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'pangloss/vim-javascript'
 
+Plug 'dikiaap/minimalist'
 Plug 'joshdick/onedark.vim' 
-Plug 'KeitaNakamura/neodark.vim'
 
 "not used anymore
+"Plug 'junegunn/fzf'
+"Plug 'tools-life/taskwiki'
+"Plug 'itchyny/calendar.vim'
+"Plug 'KeitaNakamura/neodark.vim'
 "Plug 'flazz/vim-colorschemes'
 "Plug 'PProvost/vim-ps1'
 "Plug 'sei40kr/SpaceVim-onedark'
@@ -48,7 +49,7 @@ set clipboard=unnamedplus
 set relativenumber
 set number
 set colorcolumn=79
-colorscheme onedark
+colorscheme minimalist
 
 " shortcuts
 let mapleader = " "
