@@ -1,21 +1,48 @@
+# .bashrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+
 # repair visibility of ip command
 ip() {
-  if [[ $@ == "addr" ]]; then
+  if [[ $@ == "addr" || $@ == "a" ]]; then
     command ip -brief addr
-  elif [[ $@ == "link" ]]; then
+  elif [[ $@ == "link" || $@ == "l" ]]; then
     command ip -brief link
   else
     command ip "$@"
   fi
 }
 
-alias bat='batcat'
-
 unset rc
 export EDITOR='vim'
 set -o vi
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\W\[\033[00m\]\$ '
 
 # bash history
 HISTSIZE=100000
@@ -48,7 +75,18 @@ export NNN_TRASH=1
 
 alias nn='nnn -e'
 
+alias diff='colordiff'
+
+alias sse='ssh 192.168.1.11'
+alias sso='ssh root@192.168.1.12'
+alias ssp='ssh pi@192.168.1.13'
+
 # system specific
-# fedora:
-alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
-__vte_prompt_command() { true; }
+if [[ $(hostname) == 'T4HB' ]]; then
+    :
+fi
+
+if [[ $(hostname) == 'fedora' ]]; then
+    alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
+    __vte_prompt_command() { true; }
+fi
