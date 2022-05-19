@@ -3,12 +3,12 @@ call plug#begin('~/.vim/plugged')
 "Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
