@@ -81,6 +81,14 @@ alias sse='ssh 192.168.1.11'
 alias sso='ssh root@192.168.1.12'
 alias ssp='ssh pi@192.168.1.13'
 
+lightmode="$([ $(cat ~/.brightmode) == 'light' ] && echo 1 || echo 0)"
+if [ $lightmode ]; then
+    alias bat="bat --theme gruvbox-light"
+else
+    alias bat="bat"
+fi
+
+
 # system specific
 if [[ $(hostname) == 'T4HB' ]]; then
     alias ls="ls --color=auto"
