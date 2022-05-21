@@ -83,7 +83,8 @@ alias ssp='ssh pi@192.168.1.13'
 
 # system specific
 if [[ $(hostname) == 'T4HB' ]]; then
-    :
+    alias ls="ls --color=auto"
+    alias vi="vim"
 fi
 
 if [[ $(hostname) == 'fedora' ]]; then

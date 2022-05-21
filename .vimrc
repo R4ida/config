@@ -18,6 +18,7 @@ Plug 'bfrg/vim-cpp-modern'
 Plug 'pangloss/vim-javascript'
 
 Plug 'dikiaap/minimalist'
+Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim' 
 
 "not used anymore
@@ -36,6 +37,7 @@ Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
+
 " == editor settings ==
 " preferences
 set tabstop=2
@@ -49,7 +51,13 @@ set clipboard=unnamedplus
 set relativenumber
 set number
 set colorcolumn=79
-colorscheme minimalist
+
+let lightmode = system("[ $(cat ~/.brightmode) == 'light' ] && echo -n 1 || echo -n 0 ")
+if lightmode 
+  colorscheme gruvbox
+else
+  colorscheme minimalist
+endif
 
 " shortcuts
 let mapleader = " "
