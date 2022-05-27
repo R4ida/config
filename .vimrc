@@ -57,6 +57,7 @@ if lightmode
   colorscheme gruvbox
 else
   colorscheme minimalist
+  "colorscheme minimalist
 endif
 
 " shortcuts
@@ -79,6 +80,9 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " == plugin settings ==
+" vimwiki
+let g:vimwiki_list = [{'path': '~/documents/vimwiki/'}]
+
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
