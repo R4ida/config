@@ -82,6 +82,7 @@ noremap <Right> <NOP>
 " == plugin settings ==
 " vimwiki
 let g:vimwiki_list = [{'path': '~/documents/vimwiki/'}]
+" , 'syntax': 'markdown', 'ext': '.md'
 
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'

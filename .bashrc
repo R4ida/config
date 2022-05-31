@@ -76,6 +76,7 @@ export NNN_TRASH=1
 alias nn='nnn -e'
 
 alias diff='colordiff'
+alias cgrep='compgen -c | grep'
 
 alias sse='ssh 192.168.1.11'
 alias sso='ssh root@192.168.1.12'
@@ -83,7 +84,7 @@ alias ssp='ssh pi@192.168.1.13'
 
 lightmode="$([ $(cat ~/.brightmode) == 'light' ] && echo 1 || echo 0)"
 if [ $lightmode ]; then
-    alias bat="bat --theme gruvbox-light"
+    alias bat="bat --theme ansi"
 else
     alias bat="bat"
 fi
