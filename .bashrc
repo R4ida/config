@@ -96,7 +96,7 @@ if [[ $(hostname) == 'T4HB' ]]; then
     alias vi="vim"
 fi
 
-if [[ $(hostname) == 'fedora' ]]; then
+if [[ $(hostname) == 'fedora' ]] || [[ $(hostname) == 'dicuri' ]]; then
     alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
     __vte_prompt_command() { true; }
 fi
