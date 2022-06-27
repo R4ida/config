@@ -82,11 +82,16 @@ alias sse='ssh 192.168.1.11'
 alias sso='ssh root@192.168.1.12'
 alias ssp='ssh pi@192.168.1.13'
 
-lightmode="$([ $(cat ~/.brightmode) == 'light' ] && echo 1 || echo 0)"
-if [ $lightmode ]; then
-    alias bat="bat --theme ansi"
+# toggleDarkMode have to source .bashrc too
+# well, I don't need shitty toggleDarkMode function probably,
+# just one global switch somewhere.
+# the issue is, I don't want to use light terminal theme together
+# with light mode everytime, just when I sit outside
+lightmode="$([ "$(cat ~/.brightmode)" == 'light' ] && echo 0 || echo 1)"
+if [ $lightmode -eq 0 ]; then
+    alias bat='bat --theme ansi'
 else
-    alias bat="bat"
+    alias bat='bat'
 fi
 
 

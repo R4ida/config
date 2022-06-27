@@ -2,3 +2,6 @@
 *~
 *.swp
 *.swo
+
+# gcc stuff
+a.out
