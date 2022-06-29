@@ -42,6 +42,11 @@ unset rc
 export EDITOR='vim'
 set -o vi
 
+pgrep ssh-agent >/dev/null 2>&1
+if [ "$?" -gt 0 ]; then
+    eval $(ssh-agent) >/dev/null
+fi
+
 PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\W\[\033[00m\]\$ '
 
 # bash history
