@@ -9,6 +9,7 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'patrickdavey/vimwiki_markdown'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
@@ -67,6 +68,7 @@ map <leader>[ :call ToggleColumn()<CR>
 map <leader>h :noh<CR>
 map <leader>u gUiwe
 map <leader>U guiwe
+map <leader>H :Vimwiki2HTML<CR>
 nnoremap Y y$
 
 " navigation
@@ -81,9 +83,12 @@ noremap <Right> <NOP>
 
 " == plugin settings ==
 " vimwiki
-let g:vimwiki_list = [{'path': '~/documents/vimwiki/'}]
-" , 'syntax': 'markdown', 'ext': '.md'
-
+let g:vimwiki_list = [{'path': '~/documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
+          \ 'template_path': '~/documents/vimwiki/templates/', 'template_default': 'default',
+          \ 'path_html': '~/documents/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+          \ 'html_filename_parameterization': 1,
+          \ 'template_ext': '.tpl'}]
+" 
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
