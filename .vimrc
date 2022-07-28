@@ -66,6 +66,7 @@ let mapleader = " "
 let maplocalleader = " "
 map <leader>[ :call ToggleColumn()<CR>
 map <leader>h :noh<CR>
+map <leader>r :reg<CR>
 map <leader>u gUiwe
 map <leader>U guiwe
 map <leader>H :Vimwiki2HTML<CR>
