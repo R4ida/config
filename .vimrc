@@ -12,11 +12,18 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'patrickdavey/vimwiki_markdown'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+" Plug 'tools-life/taskwiki'
+" Plug 'farseer90718/vim-taskwarrior'   addons for taskwiki
+" Plug 'powerman/vim-plugin-AnsiEsc'
+" Plug 'majutsushi/tagbar'
 
 Plug 'lervag/vimtex' 
 Plug 'vim-python/python-syntax'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'pangloss/vim-javascript'
+Plug 'uiiaoo/java-syntax.vim'
+Plug 'charlespascoe/vim-go-syntax'
+" Plug 'jelera/vim-javascript-syntax'
 
 Plug 'dikiaap/minimalist'
 Plug 'morhetz/gruvbox'
@@ -24,7 +31,6 @@ Plug 'joshdick/onedark.vim'
 
 "not used anymore
 "Plug 'junegunn/fzf'
-"Plug 'tools-life/taskwiki'
 "Plug 'itchyny/calendar.vim'
 "Plug 'KeitaNakamura/neodark.vim'
 "Plug 'flazz/vim-colorschemes'
@@ -53,13 +59,14 @@ set relativenumber
 set number
 set colorcolumn=79
 
-let lightmode = system("[ $(cat ~/.brightmode) == 'light' ] && echo -n 1 || echo -n 0 ")
-if lightmode 
-  colorscheme gruvbox
-else
-  colorscheme minimalist
-  "colorscheme minimalist
-endif
+" let lightmode = system("[ $(cat ~/.brightmode) == 'light' ] && echo -n 1 || echo -n 0 ")
+" if lightmode 
+"   colorscheme gruvbox
+" else
+"   colorscheme minimalist
+" endif
+
+colorscheme minimalist
 
 " shortcuts
 let mapleader = " "
@@ -69,13 +76,12 @@ map <leader>h :noh<CR>
 map <leader>r :reg<CR>
 map <leader>u gUiwe
 map <leader>U guiwe
-map <leader>H :Vimwiki2HTML<CR>
 nnoremap Y y$
 
 " navigation
 set mouse=a
-map <ScrollWheelUp> <C-Y>
-map <ScrollWheelDown> <C-E>
+map <ScrollWheelUp> 5<C-Y>
+map <ScrollWheelDown> 5<C-E>
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -88,7 +94,9 @@ let g:vimwiki_list = [{'path': '~/documents/vimwiki/', 'syntax': 'markdown', 'ex
           \ 'template_path': '~/documents/vimwiki/templates/', 'template_default': 'default',
           \ 'path_html': '~/documents/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
           \ 'html_filename_parameterization': 1,
-          \ 'template_ext': '.tpl'}]
+          \ 'template_ext': '.tpl',
+          \ 'nested_syntaxes': {'c++': 'cpp', 'python': 'python', 'bash': 'bash',
+                             \ 'crontab': 'crontab'} }]
 " 
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'

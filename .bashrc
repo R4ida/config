@@ -8,11 +8,27 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+if [[ -f "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
+
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+
+if [[ -d "$HOME/go/bin" ]]; then
+    PATH="$PATH:$HOME/go/bin"
+fi
+
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+if [ -f "$HOME/.metabindings" ]; then
+    . "$HOME/.metabindings"
+fi
+
 export PATH
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
@@ -47,7 +63,25 @@ if [ "$?" -gt 0 ]; then
     eval $(ssh-agent) >/dev/null
 fi
 
-PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\W\[\033[00m\]\$ '
+DARK_BLUE='\[\e[34m\]'
+DARK_GREEN='\[\e[32m\]'
+LIGHT_BLUE='\[\e[94m\]'
+LIGHT_GREEN='\[\e[92m\]'
+WHITE='\[\e[00m\]'
+
+if [[ $(hostname) == 'dicuri' ]];  then
+    export PS1="$DARK_GREEN\h$WHITE:$DARK_BLUE\W$WHITE"  # light one doesn't look good on dicuri
+else 
+    export PS1="$LIGHT_GREEN\h$WHITE:$LIGHT_BLUE\W$WHITE"
+fi
+
+if [ -f ~/.git-prompt.sh ]; then
+    . ~/.git-prompt.sh
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    export PS1="$PS1"'$(__git_ps1 " (%s)")'
+fi
+
+export PS1="$PS1"'\$ '
 
 # bash history
 HISTSIZE=100000
@@ -63,14 +97,6 @@ shopt -s histappend
 # after each command, save and reload history
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# if tmux is executable and not inside a tmux session, then try to attach.
-# if attachment fails, start a new session
-
-# commented to figure out workflow with this setting disabled
-#[ -x "$(command -v tmux)" ] \
-#  && [ -z "${TMUX}" ] \
-#  && { tmux attach || tmux; } >/dev/null 2>&1
-
 #NNN
 export NNN_PLUG='v:preview-tabbed;i:imgview;f:fzcd;d:dragdrop'
 export NNN_COLORS='#a744b322' 
@@ -79,13 +105,19 @@ export NNN_FIFO='/tmp/nnn.fifo'
 export NNN_TRASH=1
 
 alias nn='nnn -e'
+alias vv='vimv'
+alias cp='cp -a'
 
 alias diff='colordiff'
 alias cgrep='compgen -c | grep'
+alias rm='trash-put'
+alias rmt='/usr/bin/rm'
+alias rmtr='trash-empty -f'
 
-alias sse='ssh 192.168.1.11'
-alias sso='ssh root@192.168.1.12'
-alias ssp='ssh pi@192.168.1.13'
+which ipython 2>/dev/null 1>&2
+if [ "$?" -eq 0 ]; then
+    alias python='ipython'
+fi
 
 # toggleDarkMode have to source .bashrc too
 # well, I don't need shitty toggleDarkMode function probably,
@@ -99,7 +131,6 @@ else
     alias bat='bat'
 fi
 
-
 # system specific
 if [[ $(hostname) == 'T4HB' ]]; then
     alias ls="ls --color=auto"
@@ -110,3 +141,18 @@ if [[ $(hostname) == 'fedora' ]] || [[ $(hostname) == 'dicuri' ]]; then
     alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
     __vte_prompt_command() { true; }
 fi
+
+# vi mode?
+if [ $(command -v rlwrap) ] ; then
+      alias node='NODE_NO_READLINE=1 rlwrap node'
+fi
+
+if [[ $(hostname) == 'fedora' ]]; then
+    export GOPATH="$HOME/src/plib/golang:$GOPATH"
+    export GO111MODULE=off
+fi
+
+
+# TODO(dicuri): remove this
+# export VITASDK=/usr/local/vitasdk
+# export PATH=$VITASDK/bin:$PATH # add vitasdk tool to $PATH`
