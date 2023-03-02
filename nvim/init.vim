@@ -3,10 +3,10 @@ call plug#begin('~/.vim/plugged')
 "Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'patrickdavey/vimwiki_markdown'
@@ -18,16 +18,14 @@ Plug 'junegunn/limelight.vim'
 " Plug 'majutsushi/tagbar'
 
 Plug 'lervag/vimtex' 
-Plug 'vim-python/python-syntax'
-Plug 'bfrg/vim-cpp-modern'
-Plug 'pangloss/vim-javascript'
-Plug 'uiiaoo/java-syntax.vim'
-Plug 'charlespascoe/vim-go-syntax'
-" Plug 'jelera/vim-javascript-syntax'
 
-Plug 'dikiaap/minimalist'
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim' 
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 "not used anymore
 "Plug 'junegunn/fzf'
@@ -42,8 +40,18 @@ Plug 'joshdick/onedark.vim'
 "Plug 'habamax/vim-godot'
 "Plug 'takac/vim-hardtime'
 
-call plug#end()
+" Plug 'vim-python/python-syntax'
+" Plug 'bfrg/vim-cpp-modern'
+" Plug 'pangloss/vim-javascript'
+" Plug 'uiiaoo/java-syntax.vim'
+" Plug 'charlespascoe/vim-go-syntax'
+" Plug 'jelera/vim-javascript-syntax'
 
+" Plug 'dikiaap/minimalist'
+" Plug 'morhetz/gruvbox'
+" Plug 'joshdick/onedark.vim' 
+
+call plug#end()
 
 " == editor settings ==
 " preferences
@@ -57,26 +65,17 @@ set ignorecase
 set clipboard=unnamedplus
 set relativenumber
 set number
-set colorcolumn=79
-
-" let lightmode = system("[ $(cat ~/.brightmode) == 'light' ] && echo -n 1 || echo -n 0 ")
-" if lightmode 
-"   colorscheme gruvbox
-" else
-"   colorscheme minimalist
-" endif
-
-colorscheme minimalist
+set laststatus=0
+set guicursor=n-v-c-i:block
 
 " shortcuts
 let mapleader = " "
 let maplocalleader = " "
-map <leader>[ :call ToggleColumn()<CR>
 map <leader>h :noh<CR>
 map <leader>r :reg<CR>
+map <leader>a :Neotree<CR>
 map <leader>u gUiwe
 map <leader>U guiwe
-nnoremap Y y$
 
 " navigation
 set mouse=a
@@ -88,15 +87,25 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" vim-visual-multi
+" noremap <C-k> <C-Up>
+" noremap <C-j> <C-Down>
+" noremap <C-h> <C-Left>
+" noremap <C-l> <C-Right>
+let g:VM_maps = {}
+let g:VM_maps["Add Cursor Down"]    = '<M-j>'   " new cursor down
+let g:VM_maps["Add Cursor Up"]      = '<M-k>'   " new cursor up
+
 " == plugin settings ==
 " vimwiki
-let g:vimwiki_list = [{'path': '~/documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
-          \ 'template_path': '~/documents/vimwiki/templates/', 'template_default': 'default',
-          \ 'path_html': '~/documents/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
-          \ 'html_filename_parameterization': 1,
-          \ 'template_ext': '.tpl',
-          \ 'nested_syntaxes': {'c++': 'cpp', 'python': 'python', 'bash': 'bash',
-                             \ 'crontab': 'crontab'} }]
+let g:vimwiki_list =
+\ [{'path': '~/documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
+\ 'template_path': '~/documents/vimwiki/templates/', 'template_default': 'default',
+\ 'path_html': '~/documents/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+\ 'html_filename_parameterization': 1,
+\ 'template_ext': '.tpl',
+\ 'nested_syntaxes': {'c++': 'cpp', 'python': 'python', 'bash': 'bash',
+                   \ 'crontab': 'crontab', 'java': 'java', 'sql': 'sql'} }]
 " 
 " limelight
 let g:limelight_conceal_ctermfg = 'gray'
@@ -104,22 +113,10 @@ let g:limelight_conceal_ctermfg = 240
 
 " vimtex requirement
 set encoding=utf8
-syntax enable
 filetype plugin indent on
 
 " vimwiki requirements
-set nocompatible
 filetype plugin on
-syntax on
+let g:vimwiki_global_ext = 0
 
-" python
-let g:python_highlight_all = 1
-
-" == custom functions ==
-function! ToggleColumn() 
-  if &colorcolumn
-    set colorcolumn=0
-  else
-    set colorcolumn=79
-  endif
-endfunction
+lua require('config')

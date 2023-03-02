@@ -55,7 +55,7 @@ ip() {
 }
 
 unset rc
-export EDITOR='vim'
+export EDITOR='nvim'
 set -o vi
 
 pgrep ssh-agent >/dev/null 2>&1
@@ -75,6 +75,7 @@ else
     export PS1="$LIGHT_GREEN\h$WHITE:$LIGHT_BLUE\W$WHITE"
 fi
 
+# https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 if [ -f ~/.git-prompt.sh ]; then
     . ~/.git-prompt.sh
     export GIT_PS1_SHOWDIRTYSTATE=1
@@ -95,7 +96,13 @@ export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
 # after each command, save and reload history
+OLD_PROMPT_COMMAND="$PROMPT_COMMAND"
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+htoggle() {
+    prompt_temp="$PROMPT_COMMAND"
+    export PROMPT_COMMAND="$OLD_PROMPT_COMMAND"
+    OLD_PROMPT_COMMAND="$prompt_temp"
+}
 
 #NNN
 export NNN_PLUG='v:preview-tabbed;i:imgview;f:fzcd;d:dragdrop'
@@ -119,22 +126,10 @@ if [ "$?" -eq 0 ]; then
     alias python='ipython'
 fi
 
-# toggleDarkMode have to source .bashrc too
-# well, I don't need shitty toggleDarkMode function probably,
-# just one global switch somewhere.
-# the issue is, I don't want to use light terminal theme together
-# with light mode everytime, just when I sit outside
-lightmode="$([ "$(cat ~/.brightmode)" == 'light' ] && echo 0 || echo 1)"
-if [ $lightmode -eq 0 ]; then
-    alias bat='bat --theme ansi'
-else
-    alias bat='bat'
-fi
-
 # system specific
 if [[ $(hostname) == 'T4HB' ]]; then
     alias ls="ls --color=auto"
-    alias vi="vim"
+    alias vi="nvim"
 fi
 
 if [[ $(hostname) == 'fedora' ]] || [[ $(hostname) == 'dicuri' ]]; then
@@ -152,7 +147,10 @@ if [[ $(hostname) == 'fedora' ]]; then
     export GO111MODULE=off
 fi
 
-
-# TODO(dicuri): remove this
-# export VITASDK=/usr/local/vitasdk
-# export PATH=$VITASDK/bin:$PATH # add vitasdk tool to $PATH`
+if [[ $(hostname) == 'cassini' ]]; then
+	. "$HOME/.bashrc-cassini"
+	alias vi="nvim"
+	alias vim="nvim"
+    alias grep='grep --color=auto'
+    export IPYTHONDIR="$HOME/.config/ipython"
+fi
