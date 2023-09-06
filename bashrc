@@ -1,4 +1,6 @@
-# .bashrc
+if [[ -f "$HOME/.bashrc_system" ]]; then
+    . "$HOME/.bashrc_system"
+fi
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -8,10 +10,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-if [[ -f "$HOME/.cargo/env" ]]; then
-    . "$HOME/.cargo/env"
-fi
-
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -19,6 +17,10 @@ fi
 
 if [[ -d "$HOME/go/bin" ]]; then
     PATH="$PATH:$HOME/go/bin"
+fi
+
+if [[ -f "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
 fi
 
 if [[ -d "$HOME/.cargo/bin" ]]; then
@@ -43,19 +45,10 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 
-# repair visibility of ip command
-ip() {
-  if [[ $@ == "addr" || $@ == "a" ]]; then
-    command ip -brief addr
-  elif [[ $@ == "link" || $@ == "l" ]]; then
-    command ip -brief link
-  else
-    command ip "$@"
-  fi
-}
 
 unset rc
 export EDITOR='nvim'
+alias vi='nvim'
 set -o vi
 
 pgrep ssh-agent >/dev/null 2>&1
@@ -69,11 +62,7 @@ LIGHT_BLUE='\[\e[94m\]'
 LIGHT_GREEN='\[\e[92m\]'
 WHITE='\[\e[00m\]'
 
-if [[ $(hostname) == 'dicuri' ]];  then
-    export PS1="$DARK_GREEN\h$WHITE:$DARK_BLUE\W$WHITE"  # light one doesn't look good on dicuri
-else 
-    export PS1="$LIGHT_GREEN\h$WHITE:$LIGHT_BLUE\W$WHITE"
-fi
+export PS1="$LIGHT_GREEN\h$WHITE:$LIGHT_BLUE\W$WHITE"
 
 # https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 if [ -f ~/.git-prompt.sh ]; then
@@ -95,9 +84,11 @@ export HISTCONTROL=ignoredups:erasedups
 # append history entries
 shopt -s histappend
 
-# after each command, save and reload history
+# after each command, save and reload history to see commands run on other terminals
 OLD_PROMPT_COMMAND="$PROMPT_COMMAND"
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# disable or enable it, useful for terminal running one command to compile something
 htoggle() {
     prompt_temp="$PROMPT_COMMAND"
     export PROMPT_COMMAND="$OLD_PROMPT_COMMAND"
@@ -119,36 +110,22 @@ alias diff='colordiff'
 alias cgrep='compgen -c | grep'
 alias rm='trash-put'
 alias rmt='/usr/bin/rm'
-alias rmtr='trash-empty -f'
+alias pw-restart='systemctl --user restart pipewire.service'
+
+alias ip='ip -c=auto'
 
 which ipython 2>/dev/null 1>&2
 if [ "$?" -eq 0 ]; then
     alias python='ipython'
 fi
 
-# system specific
-if [[ $(hostname) == 'T4HB' ]]; then
-    alias ls="ls --color=auto"
-    alias vi="nvim"
-fi
-
-if [[ $(hostname) == 'fedora' ]] || [[ $(hostname) == 'dicuri' ]]; then
-    alias pipewire-restart='systemctl --user restart pipewire-pulse.service'
-    __vte_prompt_command() { true; }
-fi
-
-# vi mode?
+# vi mode in node
 if [ $(command -v rlwrap) ] ; then
       alias node='NODE_NO_READLINE=1 rlwrap node'
 fi
 
-if [[ $(hostname) == 'fedora' ]]; then
-    export GOPATH="$HOME/src/plib/golang:$GOPATH"
-    export GO111MODULE=off
-fi
-
-if [[ $(hostname) == 'cassini' ]]; then
-	. "$HOME/.bashrc-cassini"
+# system specific
+if [[ $(hostname) == 'cassini' || $(hostname) == 'nova' ]]; then
 	alias vi="nvim"
 	alias vim="nvim"
     alias grep='grep --color=auto'
