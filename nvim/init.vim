@@ -17,7 +17,7 @@ Plug 'junegunn/limelight.vim'
 " Plug 'powerman/vim-plugin-AnsiEsc'
 " Plug 'majutsushi/tagbar'
 
-Plug 'lervag/vimtex' 
+" Plug 'lervag/vimtex' 
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -48,7 +48,8 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " Plug 'jelera/vim-javascript-syntax'
 
 " Plug 'dikiaap/minimalist'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
 " Plug 'joshdick/onedark.vim' 
 
 call plug#end()
@@ -120,3 +121,4 @@ filetype plugin on
 let g:vimwiki_global_ext = 0
 
 lua require('config')
+

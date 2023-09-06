@@ -1,9 +1,39 @@
--- TODO: split into multiple files
+
+-- change colorscheme to light if terminal theme has light theme
+-- works checking current terminal background color setting
+-- @todo: make it work without restarting
+
+-- colors: #002b36 #fdf6e3
+XFCE_TERMINAL_BACKGROUND_LIGHT = "#fdf6e3"
+
+file = io.open(os.getenv("HOME") .. "/.config/xfce4/terminal/terminalrc", "r")
+if file then 
+
+  for line in file:lines() do
+    key, value = line:match("([^,]+)=([^,]+)")  -- this is so fucking stupid
+    if key == "ColorBackground" then
+      if value == XFCE_TERMINAL_BACKGROUND_LIGHT then
+        vim.api.nvim_command('set background=light')
+        vim.api.nvim_command('colorscheme solarized')
+      end
+      break
+    end
+  end
+
+  file:close()
+else
+  -- @todo: log error ?
+end
+
+---------------------------------------------------------------------------------
+-- I have no idea whats going on here...
+
+-- @todo: split into multiple files
 -- LSP config
-require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = { "pyright", "sumneko_lua", "clangd" }
-})
+-- require("mason").setup()
+-- require("mason-lspconfig").setup({
+--   ensure_installed = { "pyright", "sumneko_lua", "clangd" }
+-- })
 
 -- require("lspconfig").pyright.setup {}
 -- require'lspconfig'.clangd.setup{}
@@ -14,7 +44,7 @@ require("mason-lspconfig").setup({
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   -- (the four listed parsers should always be installed)
-  ensure_installed = { "c", "cpp", "python", "bash", "lua", "vim", "help",
+  ensure_installed = { "c", "cpp", "python", "bash", "lua", "vim",
                        "latex", "markdown" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -138,15 +168,6 @@ end
 --
 --
 
-require("neo-tree").setup({
-  window = {
-    mappings = {
-      ["<space>"] = "none",
-      ["o"] = "toggle_node"
-    }
-  }
-})
-
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
@@ -160,3 +181,12 @@ return require('packer').startup(function(use)
       }
     }
 end)
+
+-- require("neo-tree").setup({
+--   window = {
+--     mappings = {
+--       ["<space>"] = "none",
+--       ["o"] = "toggle_node"
+--     }
+--   }
+-- })
