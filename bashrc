@@ -85,14 +85,22 @@ export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
 # after each command, save and reload history to see commands run on other terminals
-OLD_PROMPT_COMMAND="$PROMPT_COMMAND"
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+PROMPT_COMMAND_STANDARD="$PROMPT_COMMAND"
+PROMPT_COMMAND_REFRESH="history -a; history -c; history -r; $PROMPT_COMMAND_STANDARD"
+export PROMPT_COMMAND="$PROMPT_COMMAND_REFRESH"
+prompt_command_refreshing='TRUE'
 
 # disable or enable it, useful for terminal running one command to compile something
 htoggle() {
-    prompt_temp="$PROMPT_COMMAND"
-    export PROMPT_COMMAND="$OLD_PROMPT_COMMAND"
-    OLD_PROMPT_COMMAND="$prompt_temp"
+    if [[ "$prompt_command_refreshing" == "TRUE" ]]; then
+        export PROMPT_COMMAND="$PROMPT_COMMAND_STANDARD"
+        prompt_command_refreshing='FALSE'
+        echo 'disabled history refresh'
+    else
+        export PROMPT_COMMAND="$PROMPT_COMMAND_REFRESH"
+        prompt_command_refreshing='TRUE'
+        echo 'enabled history refresh'
+    fi
 }
 
 #NNN
