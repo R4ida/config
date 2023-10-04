@@ -2,28 +2,21 @@
 -- change colorscheme to light if terminal theme has light theme
 -- works checking current terminal background color setting
 -- @todo: make it work without restarting
+--        callback on config file edit? how to do this
 
 -- colors: #002b36 #fdf6e3
 XFCE_TERMINAL_BACKGROUND_LIGHT = "#fdf6e3"
 
-file = io.open(os.getenv("HOME") .. "/.config/xfce4/terminal/terminalrc", "r")
-if file then 
+-- run this one instead: xfconf-query -c xfce4-terminal -p /color-background
+local handle = io.popen('xfconf-query -c xfce4-terminal -p /color-background')
+local current_terminal_background_color = handle:read()
+handle:close()
 
-  for line in file:lines() do
-    key, value = line:match("([^,]+)=([^,]+)")  -- this is so fucking stupid
-    if key == "ColorBackground" then
-      if value == XFCE_TERMINAL_BACKGROUND_LIGHT then
-        vim.api.nvim_command('set background=light')
-        vim.api.nvim_command('colorscheme solarized')
-      end
-      break
-    end
-  end
-
-  file:close()
-else
-  -- @todo: log error ?
+if current_terminal_background_color == XFCE_TERMINAL_BACKGROUND_LIGHT then
+ vim.api.nvim_command('set background=light')
+ vim.api.nvim_command('colorscheme solarized')
 end
+
 
 ---------------------------------------------------------------------------------
 -- I have no idea whats going on here...
