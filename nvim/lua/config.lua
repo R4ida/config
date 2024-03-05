@@ -15,6 +15,8 @@ handle:close()
 if current_terminal_background_color == XFCE_TERMINAL_BACKGROUND_LIGHT then
  vim.api.nvim_command('set background=light')
  vim.api.nvim_command('colorscheme solarized')
+else
+ vim.api.nvim_command('set background=dark')
 end
 
 
