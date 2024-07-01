@@ -6,3 +6,5 @@
 # gcc
 a.out
 watch_later
+ipython/profile_default/history*
+ipython/profile_default/db
