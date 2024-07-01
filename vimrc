@@ -60,7 +60,7 @@ set ignorecase
 set clipboard=unnamedplus
 set relativenumber
 set number
-set colorcolumn=79
+" set colorcolumn=79
 set laststatus=0
 set guicursor=n-v-c-i:block
 

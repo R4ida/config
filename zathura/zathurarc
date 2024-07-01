@@ -2,6 +2,4 @@ set selection-clipboard clipboard
 set scroll-step 100
 map <C-y> scroll up
 map <C-e> scroll down
-     
 set window-title-basename true
-set selection-clipboard clipboard

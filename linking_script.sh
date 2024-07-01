@@ -43,6 +43,8 @@ if [[ -f ".bashrc" ]]; then
     MOVED_BASHRC="TRUE"
 fi
 
+# @todo: apparently .config doesnt exist on macs, and it crashes script..
+# but then, even if it manages to link everything, my .bashrc config makes bash segfault on macs...
 linking_locations=".inputrc .bashrc .tmux.conf .config/ipython .config/mpv .config/zathura .config/nvim"
 for file in $linking_locations; do
     check_if_exists "$file"
@@ -56,4 +58,10 @@ ln -s "$SCRIPT_DIR"/nvim      "$HOME"/.config/nvim
 ln -s "$SCRIPT_DIR"/zathura   "$HOME"/.config/zathura
 ln -s "$SCRIPT_DIR"/mpv       "$HOME"/.config/mpv
 
+if [[ ! -f ".git-prompt.sh" ]]; then
+    curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh' --output '.git-prompt.sh'
+fi
+
 popd >/dev/null
+
+"$SCRIPT_DIR/PlugInstall.sh"
