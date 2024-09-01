@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Appstream URI handler
+Exec=/usr/bin/appstream_handler %u
+# Hidden=true
+StartupNotify=false
+MimeType=x-scheme-handler/appstream;

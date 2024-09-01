@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# from https://unix.stackexchange.com/questions/497146/create-a-custom-url-protocol-handler
+if [[ "$1" == "appstream:"* ]]; then
+    package=${1#appstream:}
+    xfce4-terminal --command="/usr/bin/scripts/command_wrapper flatpak install $package"
+else
+    xdg-open "$1"  # open with the default handler -- wonder if thats a correct thing to do actually?
+fi

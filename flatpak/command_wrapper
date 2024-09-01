@@ -1,0 +1,15 @@
+#!/bin/bash
+
+"$@"
+rc="$?"
+
+echo 
+echo
+
+if [[ "$rc" -eq 0 ]]; then
+    echo "Script finished successfully! You can close this window now.."
+else
+    echo "Script finished with failure (exit code: $rc). You can close this window now.."
+fi
+
+sleep 720
