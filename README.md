@@ -1,17 +1,10 @@
-
- # todo
-  * how to install everything reminder?
-
-maybe i should make it work like pacman does? 
-
+# my config files..
+install.sh uses ln_dir2dir.py to link:
 ```
-home/
-|- .files
-|- .config/directories
+* homedir/*   -> ~/
+* configdir/* -> ~/.config/
 ```
-
-and just link all from home to home
-
+and downloads vim package managers..
 
 # system config things
 * all the shortcuts:
